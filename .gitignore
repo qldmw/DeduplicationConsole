@@ -165,7 +165,7 @@ DocProject/Help/Html2
 DocProject/Help/html
  
 # Click-Once directory
-publish/
+# publish/     atwood comment out this line
  
 # Publish Web Output
 *.[Pp]ublish.xml
