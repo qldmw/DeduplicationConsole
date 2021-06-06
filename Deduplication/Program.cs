@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -9,8 +11,14 @@ namespace Deduplication
 {
     class Program
     {
+        static ConfigurationReader _config = new ConfigurationReader();
+
         static void Main(string[] args)
         {
+            string target = _config.GetConfig<string>("TargetFolderPath");
+            var source = _config.GetConfig<string[]>("SourceFolderPaths");
+            var sample = _config.GetConfig<JObject>("ExtensionFolderMapping");
+
             string sourceFolderPaht = @"I:\视频照片备份合集";
             string targetFolderPath = @"H:\图片视频去重集合";
             string specificFolder = string.Empty;
@@ -87,11 +95,6 @@ namespace Deduplication
             watch.Stop();
             Console.WriteLine($"同步结束，共同步{totalSyncCount}个文件, 耗时:{watch.Elapsed.TotalMinutes}分钟");
             Console.ReadKey();
-        }
-
-        class Utility
-        {
-            static
         }
     }
 }
