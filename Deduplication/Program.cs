@@ -110,10 +110,12 @@ namespace Deduplication
                         }
 
                         //没有匹配到任意分区，而且不丢弃设置为false
-                        if (discardOtherFiles)
-                            continue;
                         if (string.IsNullOrEmpty(specificFolder))
+                        {
+                            if (discardOtherFiles)
+                                continue;
                             specificFolder = "其他";
+                        }
 
                         //复制文件过去,如果包含名称中包含中文则保留原有名称
                         string newFileName = Regex.IsMatch(i.Name, @"[\u4e00-\u9fa5]") && !exceptKeyWords.Any(s => i.Name.Contains(s)) ? i.Name : lastModifiedTime + i.Extension;
